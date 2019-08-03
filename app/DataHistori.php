@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DataTraining extends Model
+class DataHistori extends Model
 {
     //
     protected $fillable = [

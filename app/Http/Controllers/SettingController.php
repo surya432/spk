@@ -12,6 +12,7 @@ class SettingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    use HelperController;
     public function json()
     {
         return DataTables::of(\App\Setting::all())
@@ -26,6 +27,7 @@ class SettingController extends Controller
     public function index()
     {
         //
+        $this->hitung(1,0.2);
         return view('setting.index');
     }
 
@@ -120,6 +122,7 @@ class SettingController extends Controller
     public function destroy($id)
     {
         //
+        
         \App\Setting::find($id)->delete();
         return redirect()->route('setting.index')
             ->with('success', 'Setting Berhasil Di Simpan');

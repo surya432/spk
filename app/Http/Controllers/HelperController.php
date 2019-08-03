@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use phpDocumentor\Reflection\Types\Array_;
+
 trait HelperController
 {
     // x3 = umur, x2 = gaji, x1 = nilai jaminan, x4 = nilai milik sendiri 
@@ -43,5 +45,47 @@ trait HelperController
     {
         $dataA =  $nilaiPinjaman / $nilaiJaminan * 100;
         return $dataA;
+    }
+    public function hitung($kdPengajuan,$bias){
+        $hiddenLayer = \App\Setting::where("keys", 'hiddenLayer')->select('value')->first(); //dengan inisial J
+        $inputx = \App\Setting::where("keys", 'inputanX')->select('value')->first(); //dengan inisial i
+        $y = 0;
+        for($j = 1; $j <= $hiddenLayer->value ;$j++){
+            $activasi = 0;
+            $Y = 0;
+            for($i= 1;$i <= $inputx->value ; $i++){
+                $a = \App\DataTraining::where('keys', 'x' . $i)->first();
+                $b = \App\DataTraining::where(['keys'=>'w' . $i . $j, 'pengajuan_id'=>$kdPengajuan])->first();
+                $xw = $a['value'] * $b['value'];
+                \App\DataHistori::create(['keys' => 'w' . $i, 'value' => str_replace($xw,',','.'), 'pengajuan_id' => $kdPengajuan]);
+            }
+            $activasi = $this->sigmoid($Y * $bias);
+            \App\DataHistori::create(['keys' => 'y' . $j, 'value' => str_replace($xw, ',', '.'), 'pengajuan_id' => $kdPengajuan]);
+
+        }
+        return $this->hitungOutput($kdPengajuan, $bias);
+    }
+    public function hitungOutput($kdPengajuan, $bias)
+    {
+        $hiddenLayer = \App\Setting::where("keys", 'hiddenLayer')->select('value')->first(); //dengan inisial J
+        $inputx = \App\Setting::where("keys", 'inputanX')->select('value')->first(); //dengan inisial i
+        $Y = 0;
+        $data = $hiddenLayer->value * $inputx->value;
+        for ($j = 1; $j <= $hiddenLayer->value; $j++) {
+            $xw = 0;
+            for ($i = 1; $i <= $inputx->value; $i++) {
+                $a = \App\DataTraining::where('keys', 'x' . $i)->first();
+                $b = \App\DataTraining::where(['keys' => 'w' . $i . $j, 'pengajuan_id' => $kdPengajuan])->first();
+                $xw = $a['value'] * $b['value'];
+                \App\DataHistori::create(['keys' => 'w' . $i, 'value' => str_replace($xw, ',', '.'), 'pengajuan_id' => $kdPengajuan]);
+            }
+            $Y = $Y + $xw;
+        }
+        \App\DataHistori::create(['keys' => 'output', 'value' => str_replace($Y, ',', '.'), 'pengajuan_id' => $kdPengajuan]);
+        return true;
+    }
+    function sigmoid($t)
+    {
+        return 1 / (1 + exp(-$t));
     }
 }

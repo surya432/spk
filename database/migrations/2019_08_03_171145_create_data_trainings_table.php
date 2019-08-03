@@ -13,10 +13,12 @@ class CreateDataTrainingsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('data_trainings');
         Schema::create('data_trainings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigIncrements('id');
-            $table->integer('nasabah');
+            $table->string('keys');
+            $table->string('value');
+            $table->integer('pengajuan_id');
             $table->timestamps();
         });
     }

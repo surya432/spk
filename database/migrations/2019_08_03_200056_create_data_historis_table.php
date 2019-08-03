@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSettingsTable extends Migration
+class CreateDataHistorisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('settings');
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::dropIfExists('data_historis');
+        Schema::create('data_historis', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('keys');
             $table->string('value');
+            $table->integer('pengajuan_id');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('data_historis');
     }
 }
