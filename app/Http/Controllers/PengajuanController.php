@@ -74,7 +74,6 @@ class PengajuanController extends Controller
     public function show($id)
     {
         //
-
         $data = \App\nasabah::find($id)->with('assetNasabah')->first();
         $from = new \DateTime($data->tanggalLahir);
         $to   = new \DateTime('today');
