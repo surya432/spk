@@ -74,10 +74,11 @@ class PengajuanController extends Controller
     public function show($id)
     {
         //
-        $data = \App\nasabah::find($id)->with('assetNasabah')->first();
+        $data = \App\nasabah::where('id',$id)->first();
         $from = new \DateTime($data->tanggalLahir);
         $to   = new \DateTime('today');
         $data['yearOld'] = $from->diff($to)->y;
+        $data['asset'] = \App\asset::where('nasabah_id', $data->id)->get();
         $data['asset'] = \App\asset::where('nasabah_id', $data->id)->get();
         $data['nilaiAsset'] = str_replace(',','.', \App\asset::where('nasabah_id', $data->id)->sum('nilaiAsset'));
         return view('pengajuan.show',compact('data'));  
