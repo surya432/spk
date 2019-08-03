@@ -53,7 +53,15 @@ class SettingController extends Controller
             'value' => 'required',
            
         ]);
-        \App\Setting::create($request->all());
+        if(!empty($request->input('id'))){
+            $data = \App\Setting::find($request->input('id'));
+            $data->keys = $request->input('keys');
+            $data->value = $request->input('value');
+            $data->save();
+        }else{
+            \App\Setting::create($request->all());
+
+        }
         return redirect()->route('setting.index')
             ->with('success', 'Setting Berhasil Di Simpan');
     }

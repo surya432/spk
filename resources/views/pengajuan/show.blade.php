@@ -144,10 +144,10 @@
     $(document).ready(function() {
         $('.permisionlist').select2();
         var x = $('#nilaiAsset').val();
-        $('#nilaiAsset').val(numberWithCommas(x));
+        $('#nilaiAsset').val(x);
         $('#jaminan').on('change', function() {
-            alert($(this).find(":selected").val());
-            $('#nilaiJaminan').val(numberWithCommas($(this).find(":selected").data("nilai")));
+            
+            $('#nilaiJaminan').val($(this).find(":selected").data("nilai"));
         });
     });
 
