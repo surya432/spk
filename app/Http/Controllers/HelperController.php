@@ -78,12 +78,12 @@ trait HelperController
                 $a = \App\DataTraining::where('keys', 'x' . $i)->first();
                 $b = \App\DataTraining::where(['keys' => 'w' . $i . $j, 'pengajuan_id' => $kdPengajuan])->first();
                 $xw = $a['value'] * $b['value'];
-                \App\DataHistori::create(['keys' => 'w' . $i, 'value' => str_replace($xw, ',', '.'), 'pengajuan_id' => $kdPengajuan]);
+       //         \App\DataHistori::create(['keys' => 'w' . $i, 'value' => str_replace($xw, ',', '.'), 'pengajuan_id' => $kdPengajuan]);
             }
             $Y = $Y + $xw;
         }
         \App\DataHistori::create(['keys' => 'output', 'value' => str_replace($Y, ',', '.'), 'pengajuan_id' => $kdPengajuan]);
-        return true;
+        return $Y;
     }
     function sigmoid($t)
     {
