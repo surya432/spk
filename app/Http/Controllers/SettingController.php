@@ -14,7 +14,7 @@ class SettingController extends Controller
      */
     public function json()
     {
-        return DataTables::eloquent(\App\Setting::query())
+        return DataTables::of(\App\Setting::all())
             ->addColumn('action', function ($query) {
                 return '<Button data-id="' . $query->id . '" data-keys="' . $query->keys . '" data-value="' . $query->value . '" id="btnEditSetting" class="btn btn-xs btn-warning editor_remove"><i class="glyphicon glyphicon-edit"></i> Edit</Button>'.'<Button data-id="' . $query->id . '" id="btnDeleteSetting" class="btn btn-xs btn-danger editor_remove"><i class="glyphicon glyphicon-trash"></i> Delete</Button>';
 
