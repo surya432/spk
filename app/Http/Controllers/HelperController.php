@@ -61,7 +61,7 @@ trait HelperController
                // \App\DataHistori::create(['keys' => 'w' . $i, 'value' => $xw, 'pengajuan_id' => $kdPengajuan]);
             }
             $activasi = $this->sigmoid($Y * $bias);
-            \App\DataHistori::create(['keys' => 'y' . $j, 'value' => str_replace($xw, ',', '.'), 'pengajuan_id' => $kdPengajuan]);
+            \App\DataHistori::create(['keys' => 'y' . $j, 'value' => $activasi, 'pengajuan_id' => $kdPengajuan]);
 
         }
         return $this->hitungOutput($kdPengajuan, $bias);
