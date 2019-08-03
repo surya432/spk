@@ -13,9 +13,9 @@ class PengajuanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function json()
+    public function json($id)
     {
-        return DataTables::eloquent(\App\pengajuan::query())
+        return DataTables::of(\App\pengajuan::where('nasabah_id',$id)->get())
             ->addColumn('action', function ($query) {
                 return
                     '<Button data-id="'.$query->id. '" id="btnDeletePengajuan" class="btn btn-xs btn-danger editor_remove"><i class="glyphicon glyphicon-trash"></i> delete</Button>';

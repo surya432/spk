@@ -13,9 +13,9 @@ class AssetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function json()
+    public function json($id)
     {
-        return DataTables::eloquent(\App\asset::query())
+        return DataTables::of(\App\asset::where('nasabah_id',$id))
             ->addColumn('action', function ($query) {
                 return   '<Button data-id="' . $query->id . '" id="btnDeleteAsset" class="btn btn-xs btn-danger editor_remove"><i class="glyphicon glyphicon-trash"></i> delete</Button>';
             })

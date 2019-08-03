@@ -163,7 +163,7 @@
         $('#table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{ route("tableAsset") }}',
+            ajax: '{{ route("tableAsset" ,$data->id) }}',
             columns: [{
                     data: 'id',
                     name: 'id'
@@ -216,7 +216,7 @@
         $('#tablePengajuan').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{ route("tablePengajuan") }}',
+            ajax: '{{ route("tablePengajuan",$data->id) }}',
             columns: [{
                     data: 'id',
                     name: 'id'
