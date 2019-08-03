@@ -27,7 +27,7 @@ class SettingController extends Controller
     public function index()
     {
         //
-        $this->hitung(1,0.2);
+       dd($this->hitung(1, 1)) ;
         return view('setting.index');
     }
 

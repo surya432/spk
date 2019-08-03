@@ -52,12 +52,13 @@ trait HelperController
         $y = 0;
         for($j = 1; $j <= $hiddenLayer->value ;$j++){
             $activasi = 0;
-            $Y = 0;
+            (float) $Y = 0;
             for($i= 1;$i <= $inputx->value ; $i++){
                 $a = \App\DataTraining::where('keys', 'x' . $i)->first();
                 $b = \App\DataTraining::where(['keys'=>'w' . $i . $j, 'pengajuan_id'=>$kdPengajuan])->first();
-                $xw = $a['value'] * $b['value'];
-                \App\DataHistori::create(['keys' => 'w' . $i, 'value' => str_replace($xw,',','.'), 'pengajuan_id' => $kdPengajuan]);
+                $xw = (float)$a['value'] * (float)$b['value'];
+                 $Y = $Y + $xw;
+               // \App\DataHistori::create(['keys' => 'w' . $i, 'value' => $xw, 'pengajuan_id' => $kdPengajuan]);
             }
             $activasi = $this->sigmoid($Y * $bias);
             \App\DataHistori::create(['keys' => 'y' . $j, 'value' => str_replace($xw, ',', '.'), 'pengajuan_id' => $kdPengajuan]);
