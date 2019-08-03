@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\pengajuan;
 use Illuminate\Http\Request;
+use DataTables;
 
 class PengajuanController extends Controller
 {
@@ -12,6 +13,19 @@ class PengajuanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function json()
+    {
+        return DataTables::eloquent(\App\pengajuan::query())
+            ->addColumn('action', function ($query) {
+                return '<a href="' . route("asset.edit", $query->id) .
+                    '" class="btn btn-xs btn-warning editor_edit"><i class="glyphicon glyphicon-edit"></i> Edit</a>' .
+                    '<a href="' . route("asset.destroy", $query->id) .
+                    '" class="btn btn-xs btn-danger editor_remove"><i class="glyphicon glyphicon-trash"></i> delete</a>';
+            })
+           
+            ->rawColumns(['nama', 'action'])
+            ->make(true);
+    }
     public function index()
     {
         //
@@ -36,6 +50,21 @@ class PengajuanController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'nasabah_id' => 'required',
+            'umur' => 'required',
+            'nilaiPengajuan' => 'required',
+            'perkerjaan' => 'required',
+            'nilaiJaminan' => 'required',
+            'tenorPinjaman' => 'required',
+            'gaji' => 'required',
+            'jaminan' => 'required',
+            'nilaiAsset' => 'required',
+        ]);
+        $input = $request->all();
+        \App\pengajuan::create($input);
+        return redirect()->route('nasabah.show',$request->input('nasabah_id'))
+            ->with('success', 'Pengajuan Berhasil Di Simpan');
     }
 
     /**

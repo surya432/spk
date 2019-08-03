@@ -114,7 +114,7 @@
         <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">List Pengajuan</h3>
-                <a class="btn btn-primary" href="{{ route('pengajuan.create') }}"> Tambah Pengajuan</a>
+                <a class="btn btn-primary" href="{{ route('pengajuan.show',$data->id) }}"> Tambah Pengajuan</a>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -169,6 +169,25 @@
                     data: 'namaAsset'
                 }, {
                     data: 'nilaiAsset'
+                }, {
+                    data: 'action',
+                    orderable: false,
+                    searchable: false
+                }
+            ]
+        });
+        $('#tablePengajuan').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{{ route("tablePengajuan") }}',
+            columns: [{
+                    data: 'id',
+                    name: 'id'
+                },
+                {
+                    data: 'created_at'
+                }, {
+                    data: 'nilaiPengajuan'
                 }, {
                     data: 'action',
                     orderable: false,

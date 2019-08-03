@@ -144,10 +144,6 @@
     $(document).ready(function() {
         $('.permisionlist').select2();
         var x = $('#nilaiAsset').val();
-        $('#nilaiPengajuan').change(function() {
-            $('#nilaiPengajuan').val(numberWithCommas($(this).val()));
-        });
-
         $('#nilaiAsset').val(numberWithCommas(x));
         $('#jaminan').on('change', function() {
             alert($(this).find(":selected").val());

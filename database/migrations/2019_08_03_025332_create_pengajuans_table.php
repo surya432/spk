@@ -13,13 +13,18 @@ class CreatePengajuansTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('pengajuans');
         Schema::create('pengajuans', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('nasabah_id');
             $table->integer('umur');
-            $table->integer('nilaiPengajuan');
+            $table->bigInteger('nilaiPengajuan');
             $table->string('perkerjaan');
-            $table->string('perkerjaan');
+            $table->bigInteger('nilaiJaminan');
+            $table->integer('tenorPinjaman');
+            $table->bigInteger('gaji');
+            $table->integer('jaminan');
+            $table->bigInteger('nilaiAsset');
             $table->timestamps();
         });
     }

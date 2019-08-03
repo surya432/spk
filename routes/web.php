@@ -23,3 +23,4 @@ Route::resource('/home/asset', 'AssetController');
 Route::resource('/home/pengajuan', 'PengajuanController');
 Route::get('/ajax/datatables/nasabah', 'NasabahController@json')->name('tableNasabah');
 Route::get('/ajax/datatables/asset/$id', 'AssetController@json')->name('tableAsset');
+Route::get('/ajax/datatables/pengajuan/$id', 'PengajuanController@json')->name('tablePengajuan');
