@@ -20,9 +20,7 @@ class NasabahController extends Controller
                     '" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-edit"></i> Edit</a>'.
                 '<a href="' . route("nasabah.show", $query->id) .
                 '" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-eye-open"></i> Show</a>'.
-                '<a href="' . route("nasabah.destroy", $query->id) .
-                '" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> delete</a>'
-                    ;
+                '<Button data-id="'. $query->id. '" id="btnDelete" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> delete</Button>';
             })
             ->rawColumns(['nama', 'action'])
             ->make(true);

@@ -3,19 +3,22 @@
 @section('title', 'Master Services')
 
 @section('content_header')
-<h1>List Nasabah</h1>
+<div class="row">
+    <div class="col-lg-12 margin-tb">
+        <div class="pull-left">
+            <h1>List Nasabah</h1>
+        </div>
+        <div class="pull-right">
+            <a class="btn btn-primary btn-green" href="{{ route('nasabah.create') }}"> Tambah Baru Nasabah</a>
+        </div>
+
+    </div>
+</div>
 @stop
 
 @section('content')
 <div class="page-wrapper">
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
 
-            <div class="pull-right">
-                <a class="btn btn-primary btn-green" href="{{ route('nasabah.create') }}"> Tambah Baru Nasabah</a>
-            </div>
-        </div>
-    </div>
 
     <div class="row">
         <div class="col-lg-12">
@@ -55,7 +58,8 @@
 @stop
 @section('js')
 <script>
-    $(function() {
+    $(document).ready(function(event) {
+
         $('#table').DataTable({
             processing: true,
             serverSide: true,
@@ -76,7 +80,24 @@
 
             ]
         });
-        
+
+        $('body').on('click', '#btnDelete', function(e) {
+            var user_id = $(this).data("id");
+
+            confirm("Apa Anda Yakin menghapus Data Nasabah !");
+
+            $.ajax({
+                type: 'get',
+                url: "/nasabah/delete/"+user_id,
+                success: function(data) {
+                    var oTable = $('#table').dataTable();
+                    oTable.fnDraw(false);
+                },
+                error: function(data) {
+                    console.log('Error:', data);
+                }
+            });
+        });
     });
 </script>
 @stop

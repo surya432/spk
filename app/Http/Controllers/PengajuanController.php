@@ -17,10 +17,8 @@ class PengajuanController extends Controller
     {
         return DataTables::eloquent(\App\pengajuan::query())
             ->addColumn('action', function ($query) {
-                return '<a href="' . route("asset.edit", $query->id) .
-                    '" class="btn btn-xs btn-warning editor_edit"><i class="glyphicon glyphicon-edit"></i> Edit</a>' .
-                    '<a href="' . route("asset.destroy", $query->id) .
-                    '" class="btn btn-xs btn-danger editor_remove"><i class="glyphicon glyphicon-trash"></i> delete</a>';
+                return
+                    '<Button data-id="'.$query->id. '" id="btnDeletePengajuan" class="btn btn-xs btn-danger editor_remove"><i class="glyphicon glyphicon-trash"></i> delete</Button>';
             })
            
             ->rawColumns(['nama', 'action'])
@@ -115,8 +113,11 @@ class PengajuanController extends Controller
      * @param  \App\pengajuan  $pengajuan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(pengajuan $pengajuan)
+    public function destroy($id)
     {
         //
+        \App\pengajuan::find($id)->delete();
+        return redirect()->route('nasabah.index')
+            ->with('success', 'Pengajuan Berhasil Di Hapus');
     }
 }
