@@ -10,7 +10,7 @@ class HistoriTrainingController extends Controller
     //
     public function index()
     {
-        return view('training.index');
+        return view('training.index2');
     }
     public function jsonOutput($id)
     {
