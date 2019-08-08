@@ -198,7 +198,7 @@
 
                         @for ($i=1; $i <=$data->bobotLayers; $i++)
                             <div class="col-xs-3">
-                                {!! Form::text("z[]".$i, null, array('placeholder' => 'z3'.$i, 'var'=>"z$i",'required' => 'required','class' => "form-control classZ")) !!}
+                                {!! Form::text("z[]", null, array('placeholder' => 'z'.$i, 'var'=>"z$i",'required' => 'required','class' => "form-control classZ")) !!}
                             </div>
                             @endfor
 
