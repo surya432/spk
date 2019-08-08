@@ -118,6 +118,14 @@ return [
             'text'        => 'Nasabah',
             'url'         => 'home/nasabah',
             'icon'        => 'users',
+        ], [
+            'text'        => 'Training Data',
+            'url'         => 'home/datatraining',
+            'icon'        => 'users',
+        ], [
+            'text'        => 'Histori Data',
+            'url'         => 'home/historitraining',
+            'icon'        => 'users',
         ],
         'ACCOUNT SETTINGS',
         [

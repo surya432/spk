@@ -63,7 +63,7 @@
                         <div class="form-group">
                             {{ Form::label("Pengajuan:", null, ['class' => 'col-sm-4 control-label']) }}
                             <div class="col-sm-8">
-                                {!! Form::text('nilaiPengajuan', $data->nilaiPengajuan, array('id'=>'nilaiPengajuan','placeholder' => 'Pengajuan Kredit', 'class' => 'form-control uang')) !!}
+                                {!! Form::number('nilaiPengajuan', $data->nilaiPengajuan, array('id'=>'nilaiPengajuan','placeholder' => 'Pengajuan Kredit', 'class' => 'form-control')) !!}
                             </div>
                         </div>
 
@@ -83,11 +83,12 @@
                         <div class="form-group">
                             {{ Form::label("Nilai Jaminan :", null, ['class' => 'col-sm-4 control-label']) }}
                             <div class="col-sm-8">
-                                {!! Form::text('nilaiJaminan', $data->nilaiJaminan, array('placeholder' => '0', 'readonly'=>true, 'class' => 'form-control uang','id' => 'nilaiJaminan')) !!}
+                                {!! Form::text('nilaiJaminan', $data->nilaiJaminan, array('placeholder' => '0', 'readonly'=>true, 'class' => 'form-control','id' => 'nilaiJaminan')) !!}
                             </div>
                         </div>
                     </div>
                     <div class='col-sm-6'>
+
                         <div class="form-group">
                             {{ Form::label("Telp:", null, ['class' => 'col-sm-4 control-label']) }}
                             <div class="col-sm-8">
@@ -110,25 +111,19 @@
                         <div class="form-group">
                             {{ Form::label("Tenor Pinjaman :", null, ['class' => 'col-sm-4 control-label']) }}
                             <div class="col-sm-8">
-                                {!! Form::number('tenorPinjaman', $data->tenorPinjaman, array('placeholder' => 'Tenor Pinjaman (Bulan)', 'class' => 'form-control ')) !!}
+                                {!! Form::number('tenorPinjaman', $data->tenorPinjaman, array('placeholder' => 'Tenor Pinjaman (Bulan)', 'class' => 'form-control')) !!}
                             </div>
                         </div>
                         <div class="form-group">
                             {{ Form::label("Gaji :", null, ['class' => 'col-sm-4 control-label']) }}
                             <div class="col-sm-8">
-                                {!! Form::text('gaji', $data->gaji, array('placeholder' => 'Gaji Nasabah', 'class' => 'form-control uang')) !!}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label("Total Nilai Asset :", null, ['class' => 'col-sm-4 control-label']) }}
-                            <div class="col-sm-8">
-                                {!! Form::text('totalnilaiAsset', $data->nilaiAsset, array('id'=>'totalnilaiAsset','placeholder' => 'Nilai Asset', 'readonly'=>true, 'class' => 'form-control ')) !!}
+                                {!! Form::number('gaji', $data->gaji, array('placeholder' => 'Gaji Nasabah', 'class' => 'form-control')) !!}
                             </div>
                         </div>
                         <div class="form-group">
                             {{ Form::label("Nilai Asset :", null, ['class' => 'col-sm-4 control-label']) }}
                             <div class="col-sm-8">
-                                {!! Form::text('nilaiAsset', null, array('id'=>'nilaiAsset','placeholder' => 'Nilai Asset', 'readonly'=>true, 'class' => 'form-control ')) !!}
+                                {!! Form::text('nilaiAsset', $data->nilaiAsset, array('id'=>'nilaiAsset','placeholder' => 'Nilai Asset', 'readonly'=>true, 'class' => 'form-control')) !!}
                             </div>
                         </div>
                     </div>
@@ -138,8 +133,7 @@
                     <button type="submit" class="btn btn-info pull-right">Ajukan</button>
                 </div>
                 <!-- /.box-footer -->
-                {!! Form::close() !!}
-
+            </form>
         </div>
         <!-- /.box -->
     </div>
@@ -151,18 +145,15 @@
     $(document).ready(function() {
         $('.permisionlist').select2();
         var x = $('#nilaiAsset').val();
-        $('#nilaiAsset').val(x);
-        $('#jaminan').on('change', function() {
-            var jaminan = $(this).find(":selected").data("nilai");
-            var TotalAsset = $('#totalnilaiAsset').val();
-            console.log(TotalAsset - jaminan);
-            $('#nilaiAsset').val(TotalAsset - jaminan);
-            $('#nilaiJaminan').val($(this).find(":selected").data("nilai"));
-        });
-        $('.uang').mask('000.000.000.000.000', {
-            reverse: true
+        $('#nilaiPengajuan').change(function() {
+            $('#nilaiPengajuan').val(numberWithCommas($(this).val()));
         });
 
+        $('#nilaiAsset').val(numberWithCommas(x));
+        $('#jaminan').on('change', function() {
+            alert($(this).find(":selected").val());
+            $('#nilaiJaminan').val(numberWithCommas($(this).find(":selected").data("nilai")));
+        });
     });
 
     function numberWithCommas(x) {

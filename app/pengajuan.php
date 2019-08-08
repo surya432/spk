@@ -18,9 +18,16 @@ class pengajuan extends Model
         'jaminan',
         'nilaiAsset',
     ];
-
+    public function getFormattedNilaiPengajuanAttribute()
+    {
+        return number_format($this->attributes['nilaiPengajuan'], 2);
+    }
     protected $dates = [
         'created_at',
         'updated_at'
     ];
+    public function Nasabah()
+    {
+        return $this->hasOne('App\nasabah', 'id', 'nasabah_id');
+    }
 }

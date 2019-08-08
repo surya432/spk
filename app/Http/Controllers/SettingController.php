@@ -20,14 +20,13 @@ class SettingController extends Controller
                 return '<Button data-id="' . $query->id . '" data-keys="' . $query->keys . '" data-value="' . $query->value . '" id="btnEditSetting" class="btn btn-xs btn-warning editor_remove"><i class="glyphicon glyphicon-edit"></i> Edit</Button>'.'<Button data-id="' . $query->id . '" id="btnDeleteSetting" class="btn btn-xs btn-danger editor_remove"><i class="glyphicon glyphicon-trash"></i> Delete</Button>';
 
             })
-
             ->rawColumns(['nama', 'action'])
             ->make(true);
     }
     public function index()
     {
         //
-       dd($this->hitung(1, 0.25)) ;
+       //dd($this->hitung(1, 0.25)) ;
         return view('setting.index');
     }
 
@@ -55,15 +54,22 @@ class SettingController extends Controller
             'value' => 'required',
            
         ]);
-        if(!empty($request->input('id'))){
+        if(empty($request->input('id'))){
+            \App\Setting::create($request->all());
+        }else{
             $data = \App\Setting::find($request->input('id'));
             $data->keys = $request->input('keys');
             $data->value = $request->input('value');
             $data->save();
-        }else{
-            \App\Setting::create($request->all());
-
         }
+        // $historiKosong = \App\DataHistori::query();
+        // $historiKosong->delete();
+        // $dataTrainings = \App\DataTraining::query();
+        // $dataTrainings->delete();
+        \App\DataTraining::truncate();
+        \App\DataHistori::truncate();
+
+
         return redirect()->route('setting.index')
             ->with('success', 'Setting Berhasil Di Simpan');
     }

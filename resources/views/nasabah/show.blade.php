@@ -82,7 +82,6 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <div class="row">
                 {!! Form::open(array('route' => 'asset.store','method'=>'POST')) !!}
                 {{Form::hidden('nasabah_id', $data->id, array('id' => 'nasabah_id')) }}
                 <div class="box-body">
@@ -95,19 +94,17 @@
                     <div class="form-group">
                         <label for="inputPassword3" class="col-sm-3 control-label">Nilai Aset</label>
                         <div class="col-sm-8">
-                            {!! Form::number('nilaiAsset', null, array('placeholder' => 'Nilai Asset','class' => 'form-control')) !!}
+                            {!! Form::text('nilaiAsset', null, array('placeholder' => 'Nilai Asset','class' => 'form-control')) !!}
                         </div>
                     </div>
-
+                    <div class='class="box-footer'>
+                        <div class="box-footer col-sm-6">
+                            <button type="submit" class="btn btn-info pull-right">Simpan</button>
+                        </div>
+                    </div> <!-- /.box-footer -->
                 </div>
                 <!-- /.box-body -->
-                <div class='class="box-footer'>
-                    <div class="box-footer col-sm-6">
-                        <button type="submit" class="btn btn-info pull-right">Simpan</button>
-                    </div>
-                </div> <!-- /.box-footer -->
                 {!! Form::close() !!}
-            </div>
         </div>
         <div class="box box-info">
             <div class="box-header with-border">

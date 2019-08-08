@@ -18,7 +18,7 @@ class CreateDataTrainingsTable extends Migration
             $table->bigIncrements('id');
             $table->string('keys');
             $table->string('value');
-            $table->integer('pengajuan_id');
+            $table->integer('pengajuan_id')->nullable();
             $table->timestamps();
         });
     }

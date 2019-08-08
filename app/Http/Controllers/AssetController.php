@@ -19,6 +19,9 @@ class AssetController extends Controller
             ->addColumn('action', function ($query) {
                 return   '<Button data-id="' . $query->id . '" id="btnDeleteAsset" class="btn btn-xs btn-danger editor_remove"><i class="glyphicon glyphicon-trash"></i> delete</Button>';
             })
+            ->editColumn('nilaiAsset', function ($self) {
+                return "Rp. " . number_format($self->nilaiAsset, 0, '.', '.');
+            })
             ->rawColumns(['nama', 'action'])
             ->make(true);
     }
@@ -113,7 +116,8 @@ class AssetController extends Controller
     public function destroy($id)
     {
         //
-        \App\asset::find($id)->delete();
+        $asset = \App\asset::find($id);
+        $asset->delete();
         return redirect()->back()
             ->with('success', 'Asset Berhasil Di Hapus');
     }

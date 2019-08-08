@@ -20,7 +20,9 @@ class PengajuanController extends Controller
                 return
                     '<Button data-id="'.$query->id. '" id="btnDeletePengajuan" class="btn btn-xs btn-danger editor_remove"><i class="glyphicon glyphicon-trash"></i> delete</Button>';
             })
-           
+            ->editColumn('nilaiPengajuan', function ($self) {
+                return "Rp. " . number_format($self->nilaiPengajuan, 0, '.', '.');
+            })
             ->rawColumns(['nama', 'action'])
             ->make(true);
     }
@@ -60,7 +62,18 @@ class PengajuanController extends Controller
             'nilaiAsset' => 'required',
         ]);
         $input = $request->all();
-        \App\pengajuan::create($input);
+        $temp =[
+            "nasabah_id" => $request->input('nasabah_id'),
+            "umur" => $request->input('umur'),
+            "perkerjaan" => $request->input('perkerjaan'),
+            "tenorPinjaman" => $request->input('tenorPinjaman'),
+            "nilaiPengajuan" => str_replace(".", "", $request->input('nilaiPengajuan')),
+            "gaji" => str_replace(".", "", $request->input('gaji')),
+            "jaminan" => str_replace(".", "", $request->input('jaminan')),
+            "nilaiAsset" => str_replace(".", "", $request->input('nilaiAsset')),
+            "nilaiJaminan" => str_replace(".", "", $request->input('nilaiJaminan')),
+        ];
+        \App\pengajuan::create($temp);
         return redirect()->route('nasabah.show',$request->input('nasabah_id'))
             ->with('success', 'Pengajuan Berhasil Di Simpan');
     }
@@ -116,7 +129,8 @@ class PengajuanController extends Controller
     public function destroy($id)
     {
         //
-        \App\pengajuan::find($id)->delete();
+        $pengajuan = \App\pengajuan::find($id);
+        $pengajuan->delete();
         return redirect()->route('nasabah.index')
             ->with('success', 'Pengajuan Berhasil Di Hapus');
     }
