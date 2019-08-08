@@ -51,7 +51,7 @@
         $('#table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{ route("tableTraining") }}',
+            ajax: '{{ route("tableHistori") }}',
             columns: [{
                     data: 'id',
                     name: 'id'

@@ -10,7 +10,7 @@ class HistoriTrainingController extends Controller
     //
     public function index()
     {
-        return view('training.index2');
+        return view('histori.index');
     }
     public function jsonOutput($id)
     {
@@ -53,6 +53,6 @@ class HistoriTrainingController extends Controller
        
         $data = \App\pengajuan::where('id', $id)->with('Nasabah')->first();
         $nasabah = \App\nasabah::where('id', $data->nasabah_id)->first();
-        return view('training.histori', compact('data', 'nasabah'));
+        return view('histori.histori', compact('data', 'nasabah'));
     }
 }
