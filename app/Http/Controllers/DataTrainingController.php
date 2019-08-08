@@ -83,7 +83,7 @@ class DataTrainingController extends Controller
             \App\DataTraining::create($temp);
         }
         $this->hitung($request->input('pengajuan_id'));
-        return redirect()->route('training.index')
+        return redirect()->route('datatraining.index')
             ->with('success', 'Data Training Berhasil');
     }
     public function show($id)

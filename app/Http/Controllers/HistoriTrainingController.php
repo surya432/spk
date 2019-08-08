@@ -37,7 +37,7 @@ class HistoriTrainingController extends Controller
         return DataTables::of($data)
             ->addColumn('action', function ($query) {
                 return
-                '<a href="historitraining/' . $query->id . '" data-id="' . $query->id . '" id="btnTrainingPengajuan" class="btn btn-xs btn-warning editor_proses"><i class="glyphicon glyphicon-edit"></i> Training</a>';
+                '<a href="historitraining/' . $query->id . '" data-id="' . $query->id . '" id="btnTrainingPengajuan" class="btn btn-xs btn-primary editor_proses"><i class="glyphicon glyphicon-edit"></i> Hasil Training</a>';
             })
             ->editColumn('nilaiPengajuan', function ($self) {
                 return "Rp. " . number_format($self->nilaiPengajuan, 0, '.', '.');
