@@ -19,8 +19,7 @@
 
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Daftar Nasabah
-
+                    Daftar Histori
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
