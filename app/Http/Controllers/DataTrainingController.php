@@ -19,7 +19,7 @@ class DataTrainingController extends Controller
     {
         $data = \App\pengajuan::whereNotIn('id', function ($query) {
             $query->select('pengajuan_id')->from('data_trainings')->whereNotNull('pengajuan_id')->groupBy('pengajuan_id')->get();
-        })->with('nasabah')->get();
+        })->with('nasabah')->orderBy('created_at','desc')->get();
 
         return DataTables::of($data)
             ->addColumn('action', function ($query) {
