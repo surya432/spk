@@ -4,13 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DataTables;
+use App\Charts\SimpleChart;
 
 class HistoriTrainingController extends Controller
 {
     //
     public function index()
     {
-        return view('histori.index');
+        $Labels = \App\DataHistori::select('pengajuan_id')->groupBy('pengajuan_id')->get();
+        $data = array(); // Could also be an array
+        $labal = array(); // Could also be an array
+        foreach($Labels as $a=>$b){
+            $namaNasabah = \App\pengajuan::where('pengajuans.id',$b['pengajuan_id'])
+                ->join('nasabahs', 'nasabahs.id', '=', 'pengajuans.nasabah_id')
+                ->select('nasabahs.nama')->first();
+            array_push($labal, $namaNasabah['nama']);
+        }
+        foreach ($Labels as $a => $b) {           
+            $output = \App\DataHistori::where("keys", 'output')->where('pengajuan_id', $b['pengajuan_id'])->select('value')->first();
+            array_push($data, $output['value']); 
+        }
+       //dd($data);
+        $chart = new SimpleChart;
+        $chart->labels($labal);
+        $chart->dataset('My dataset', 'line',$data);
+        return view('histori.index', compact('chart'));
     }
     public function jsonOutput($id)
     {

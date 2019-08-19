@@ -16,7 +16,14 @@
                 <p>{{ $message }}</p>
             </div>
             @endif
-
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Chart
+                </div>
+                <div class="panel-body">
+                    {!! $chart->container() !!}
+                </div>
+            </div>
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     Daftar Histori
@@ -45,6 +52,8 @@
 </div>
 @stop
 @section('js')
+{!! $chart-> script() !!}
+
 <script>
     $(function() {
         $('#table').DataTable({

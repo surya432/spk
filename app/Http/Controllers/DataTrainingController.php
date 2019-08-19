@@ -13,6 +13,7 @@ class DataTrainingController extends Controller
     use HelperController;
     public function index()
     {
+        
         return view('training.index');
     }
     public function json()

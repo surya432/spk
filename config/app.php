@@ -177,6 +177,7 @@ return [
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
 
 
     ],

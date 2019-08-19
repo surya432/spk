@@ -16,13 +16,14 @@
                 <p>{{ $message }}</p>
             </div>
             @endif
-
+            
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     Daftar Nasabah
 
                 </div>
                 <div class="panel-body">
+
                     <div class="table-responsive">
                         <table id="table" class="table table-bordered">
                             <thead class="thead-dark">
@@ -68,8 +69,6 @@
 
             ]
         });
-
-
     });
 </script>
 @stop
